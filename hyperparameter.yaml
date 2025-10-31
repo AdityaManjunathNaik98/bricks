@@ -77,7 +77,7 @@ outputs:
   
 implementation:
   container:
-    image: adityamanjunath/nesy-factory:v6
+    image: adityamanjunath/nesy-factory:v7
     command:
       - python3
       - -u
@@ -277,7 +277,7 @@ implementation:
                             "containers": [
                                 {
                                     "name": "training-container",
-                                    "image": "adityamanjunath/nesy-factory:v6",
+                                    "image": "adityamanjunath/nesy-factory:v7",
                                     "command": ["python", "train_mpqe.py"],
                                     "args": trial_args,
                                     "resources": {
