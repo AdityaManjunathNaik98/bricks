@@ -7,7 +7,7 @@ inputs:
     default: resnet
     description: Name of the GNN model to train (e.g., simple_cnn, resnet etc.)
 
-  - name: projectid
+  - name: projectId
     type: String
     default: ui_analysis
     description: Name or ID of the use case (e.g., ui_analysis)
@@ -133,7 +133,7 @@ implementation:
         parser.add_argument("--parallel_trial_count", type=int, required=True)
         parser.add_argument("--max_failed_trial_count", type=int, required=True)
         parser.add_argument("--model_name", type=str, required=True)
-        parser.add_argument("--projectid", type=str, required=True)
+        parser.add_argument("--projectId", type=str, required=True)
         parser.add_argument("--payload", type=str, required=True)
         parser.add_argument("--model_type", type=str, required=True)
         parser.add_argument("--config_json", type=str, required=True)
@@ -142,7 +142,7 @@ implementation:
 
         print("=== DEBUG: PARSED ARGUMENTS ===")
         print(f"DEBUG: model_name: {args.model_name}")
-        print(f"DEBUG: projectid: {args.projectid}")
+        print(f"DEBUG: projectId: {args.projectId}")
         print(f"DEBUG: model_type: {args.model_type}")
         print(f"DEBUG: objective_metric_name: {args.objective_metric_name}")
         print(f"DEBUG: objective_type: {args.objective_type}")
@@ -368,7 +368,7 @@ implementation:
         for idx, trial in enumerate(trials, start=1):
             print(f"DEBUG: Processing trial {idx}")
             paramss = {}
-            paramss['project_id'] = f"{args.projectid}"
+            paramss['project_id'] = f"{args.projectId}"
             paramss['model_name'] = f"{args.model_name}_trial{idx}"
             paramss['model_type'] = args.model_type
             # Add timestamp (epoch milliseconds)
@@ -463,8 +463,8 @@ implementation:
       - {inputValue: parallel_trial_count}
       - --max_failed_trial_count
       - {inputValue: max_failed_trial_count}
-      - --projectid
-      - {inputValue: projectid}
+      - --projectId
+      - {inputValue: projectId}
       - --best_hyperparams
       - {outputPath: best_hyperparams}
       - --payload
