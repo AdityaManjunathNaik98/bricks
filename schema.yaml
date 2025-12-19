@@ -49,6 +49,8 @@ implementation:
         parser.add_argument('--float_keys_json', type=str, required=False)
         args = parser.parse_args()
 
+        execution_id_int = int(args.execution_id)
+
         with open(args.bearer_auth_token, 'r') as f:
             bearer_auth_token = f.read().strip()
 
@@ -90,7 +92,7 @@ implementation:
                 if args.architecture_type != '-1':
                     row['architecture_type'] = args.architecture_type
                 if 'execution_id' not in row and args.execution_id != '-1':
-                    row['execution_id']=args.execution_id
+                    row['execution_id']=execution_id_int
                     
             
             create_url = f"{args.domain}/pi-entity-instances-service/v2.0/schemas/{args.schema_id}/instances"
@@ -120,11 +122,11 @@ implementation:
                 "dbType": "TIDB",
                 "ownedOnly": True,
                 "filter": {
-                    "execution_id": args.execution_id
+                    "execution_id": execution_id_int
                 }
             }
             
-            print(f" Checking for Existing Row with execution_id: {args.execution_id} ")
+            print(f" Checking for Existing Row with execution_id: {execution_id_int} ")
             print(f"Request URL: POST {check_url}")
             print(f"Request Headers: {json.dumps(headers)}")
             print(f"Request Payload: {json.dumps(check_payload, indent=2)}")
@@ -167,7 +169,7 @@ implementation:
                                 {
                                     "field": "execution_id",
                                     "operator": "EQUAL",
-                                    "value": args.execution_id
+                                    "value": execution_id_int
                                 }
                             ]
                         },
@@ -206,7 +208,7 @@ implementation:
                         if value_to_add is not None:
                             creation_data[column] = value_to_add
                     
-                    creation_data['execution_id'] = args.execution_id
+                    creation_data['execution_id'] = execution_id_int
                     if args.model_id != '-1':
                         creation_data['model_id'] = args.model_id
                     if args.tenant_id != '-1':
